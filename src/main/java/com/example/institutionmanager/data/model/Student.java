@@ -13,7 +13,7 @@ public class Student {
     private Long id;
     @Column(name = "student_name")
     private String name;
-    @Column(name = "adm_no")
+    @Column(name = "adm_no", unique = true)
     private String admissionNumber;
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {
@@ -34,8 +34,8 @@ public class Student {
         return courses;
     }
 
-    public void setCourses(Set<Course> courses) {
-        this.courses = courses;
+    public void setCourses(Course course) {
+        this.courses.add(course);
     }
 
     public Institution getInstitution() {
