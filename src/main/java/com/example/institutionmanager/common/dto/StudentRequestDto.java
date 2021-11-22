@@ -4,9 +4,7 @@ import com.sun.istack.NotNull;
 
 
 public class StudentRequestDto {
-    @NotNull
     private String name;
-    @NotNull
     private String admissionNumber;
 
     public StudentRequestDto() {

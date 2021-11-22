@@ -11,11 +11,13 @@ import com.example.institutionmanager.data.model.Institution;
 import com.example.institutionmanager.data.repository.CourseRepository;
 import com.example.institutionmanager.data.repository.InstitutionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class InstitutionServiceImpl implements InstitutionService{
     @Autowired
     InstitutionRepository institutionRepository;

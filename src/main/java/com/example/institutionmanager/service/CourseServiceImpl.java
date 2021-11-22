@@ -10,11 +10,13 @@ import com.example.institutionmanager.data.model.Institution;
 import com.example.institutionmanager.data.repository.CourseRepository;
 import com.example.institutionmanager.data.repository.InstitutionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class CourseServiceImpl implements CourseService{
 
     @Autowired
@@ -71,7 +73,7 @@ public class CourseServiceImpl implements CourseService{
     }
 
     @Override
-    public ApiResponse deleteStudent(Long courseId) {
+    public ApiResponse deleteCourse(Long courseId) {
         Optional<Course> course  = courseRepository.findById(courseId);
         if(course.isPresent()){
             courseRepository.delete(course.get());

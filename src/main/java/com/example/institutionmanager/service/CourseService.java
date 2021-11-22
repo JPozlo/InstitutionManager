@@ -10,7 +10,7 @@ public interface CourseService {
     CourseResponseDto createCourse(Long institutionId, CourseRequestDto courseRequestDto);
     CourseResponseDto updateCourseName(Long institutionId, Long courseId, String name);
     List<CourseResponseDto> filterByName(String name);
-    ApiResponse deleteStudent(Long courseId);
+    ApiResponse deleteCourse(Long courseId);
     List<CourseResponseDto> getAllCoursesByInstitution(Long institutionId);
     List<CourseResponseDto> getAllSortByNameAscending();
     List<CourseResponseDto> getAllSortByNameDescending();

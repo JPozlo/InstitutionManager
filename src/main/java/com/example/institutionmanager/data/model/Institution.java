@@ -1,8 +1,11 @@
 package com.example.institutionmanager.data.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.util.Set;
 
+@JsonIgnoreProperties({"hibernateLazyInitializer"})
 @Entity
 @Table(name = "institution")
 public class Institution {
@@ -39,5 +42,15 @@ public class Institution {
     }
 
     public Institution() {
+    }
+
+    @Override
+    public String toString() {
+        return "Institution{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", students=" + students +
+                ", courses=" + courses +
+                '}';
     }
 }
