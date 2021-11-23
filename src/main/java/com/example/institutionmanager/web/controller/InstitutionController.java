@@ -25,8 +25,8 @@ public class InstitutionController {
     }
 
     @PutMapping("/update/{institutionId}")
-    public ResponseEntity<InstitutionResponseDto> updateInstitutionName(@PathVariable Long institutionId, @RequestBody String name){
-        InstitutionResponseDto institutionResponseDto = institutionService.updateInstitutionName(institutionId, name);
+    public ResponseEntity<InstitutionResponseDto> updateInstitutionName(@PathVariable Long institutionId, @RequestBody InstitutionRequestDto institutionRequestDto){
+        InstitutionResponseDto institutionResponseDto = institutionService.updateInstitutionName(institutionId, institutionRequestDto.getName());
         return new ResponseEntity<>(institutionResponseDto, HttpStatus.OK);
     }
 

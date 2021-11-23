@@ -1,9 +1,6 @@
 package com.example.institutionmanager.web.controller;
 
-import com.example.institutionmanager.common.dto.ApiResponse;
-import com.example.institutionmanager.common.dto.StudentPaginatedResponseDto;
-import com.example.institutionmanager.common.dto.StudentRequestDto;
-import com.example.institutionmanager.common.dto.StudentResponseDto;
+import com.example.institutionmanager.common.dto.*;
 import com.example.institutionmanager.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -20,15 +17,15 @@ public class StudentController {
     @Autowired
     StudentService studentService;
 
-    @PostMapping("/create")
-    public ResponseEntity<StudentResponseDto> createStudent(@RequestBody StudentRequestDto studentRequestDto){
-        StudentResponseDto studentResponseDto = studentService.createStudent(studentRequestDto);
+    @PostMapping("/create/{institutionId}")
+    public ResponseEntity<StudentResponseDto> createStudent(@PathVariable Long institutionId, @RequestBody StudentRequestDto studentRequestDto){
+        StudentResponseDto studentResponseDto = studentService.createStudent(institutionId,studentRequestDto);
         return new ResponseEntity<>(studentResponseDto, HttpStatus.CREATED);
     }
 
     @PutMapping("/update/{studentId}")
-    public ResponseEntity<StudentResponseDto> updateStudentName(@PathVariable Long studentId, @RequestBody String name){
-        StudentResponseDto studentResponseDto = studentService.updateStudentName(studentId, name);
+    public ResponseEntity<StudentResponseDto> updateStudentName(@PathVariable Long studentId, @RequestBody UpdateStudentRequestDto updateStudentRequestDto){
+        StudentResponseDto studentResponseDto = studentService.updateStudentName(studentId, updateStudentRequestDto.getName());
         return new ResponseEntity<>(studentResponseDto, HttpStatus.OK);
     }
 
@@ -44,14 +41,14 @@ public class StudentController {
         return new ResponseEntity<>(studentPaginatedResponseDtoList, HttpStatus.OK);
     }
 
-    @PutMapping("/update-institution/{studentId}")
-    public ResponseEntity<StudentResponseDto> updateStudentInstitution(@PathVariable Long studentId, @RequestBody Long institutionId){
+    @PutMapping("/update-institution/{studentId}/{institutionId}")
+    public ResponseEntity<StudentResponseDto> updateStudentInstitution(@PathVariable Long studentId, @PathVariable Long institutionId){
         StudentResponseDto studentResponseDto = studentService.updateStudentInstitution(institutionId, studentId);
         return new ResponseEntity<>(studentResponseDto, HttpStatus.OK);
     }
 
-    @PostMapping("/add-course/{studentId}")
-    public ResponseEntity<StudentResponseDto> assignCourseToStudent(@PathVariable Long studentId, @RequestBody Long courseId){
+    @PostMapping("/add-course/{studentId}/{courseId}")
+    public ResponseEntity<StudentResponseDto> assignCourseToStudent(@PathVariable Long studentId, @PathVariable Long courseId){
         StudentResponseDto studentResponseDto = studentService.addStudentCourse(courseId, studentId);
         return new ResponseEntity<>(studentResponseDto, HttpStatus.CREATED);
     }

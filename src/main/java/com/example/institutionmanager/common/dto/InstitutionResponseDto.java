@@ -9,15 +9,12 @@ import java.util.List;
 public class InstitutionResponseDto {
     private Long id;
     private String name;
-    @Nullable
-    private List<Course> courses;
-    @Nullable
-    private List<Student> students;
 
     public InstitutionResponseDto(Long id, String name) {
         this.id = id;
         this.name = name;
     }
+
 
     public InstitutionResponseDto() {
     }
@@ -36,21 +33,5 @@ public class InstitutionResponseDto {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public List<Course> getCourses() {
-        return courses;
-    }
-
-    public void setCourses(List<Course> courses) {
-        this.courses = courses;
-    }
-
-    public List<Student> getStudents() {
-        return students;
-    }
-
-    public void setStudents(List<Student> students) {
-        this.students = students;
     }
 }

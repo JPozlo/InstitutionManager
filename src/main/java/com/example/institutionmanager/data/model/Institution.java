@@ -44,13 +44,5 @@ public class Institution {
     public Institution() {
     }
 
-    @Override
-    public String toString() {
-        return "Institution{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", students=" + students +
-                ", courses=" + courses +
-                '}';
-    }
+
 }

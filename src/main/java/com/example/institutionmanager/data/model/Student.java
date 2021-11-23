@@ -16,7 +16,7 @@ public class Student {
     private Long id;
     @Column(name = "student_name")
     private String name;
-    @Column(name = "adm_no", unique = true)
+    @Column(name = "adm_no", unique = true, nullable = false)
     private String admissionNumber;
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {
@@ -28,10 +28,6 @@ public class Student {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "institution_id")
     private Institution institution;
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public Set<Course> getCourses() {
         return courses;
@@ -52,11 +48,11 @@ public class Student {
     public Student() {
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

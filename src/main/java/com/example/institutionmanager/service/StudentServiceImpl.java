@@ -29,28 +29,32 @@ public class StudentServiceImpl implements StudentService{
     CourseRepository courseRepository;
 
     @Override
-    public StudentResponseDto createStudent(StudentRequestDto studentRequestDto) {
+    public StudentResponseDto createStudent(Long institutionId, StudentRequestDto studentRequestDto) {
+        Optional<Institution> optionalInstitution = institutionRepository.findById(institutionId);
         List<Student> studentList = studentRepository.findAll();
-        System.out.println("This place hit by the code after: " + studentList.isEmpty());
-        if(studentList.isEmpty()){
-                Student student = new Student();
-                student.setName(studentRequestDto.getName());
-                student.setAdmissionNumber(studentRequestDto.getAdmissionNumber());
-                System.out.println("Saved student hit before: " + student);
-                Student savedStudent = studentRepository.save(student);
-                System.out.println("Saved student hit after: " + savedStudent);
-                return new StudentResponseDto(savedStudent.getId(), savedStudent.getName(), savedStudent.getAdmissionNumber());
-        } else{
-            boolean admissionNumberExists = studentList.stream().anyMatch(student -> student.getAdmissionNumber().equals(studentRequestDto.getAdmissionNumber()));
-            if(admissionNumberExists){
-                throw new NameAlreadyTakenException("Student with the same admission number already exists");
+        if(optionalInstitution.isPresent()){
+            Institution institution = optionalInstitution.get();
+            Student student = new Student();
+            if(studentList.isEmpty()){
+                    student.setName(studentRequestDto.getName());
+                    student.setAdmissionNumber(studentRequestDto.getAdmissionNumber());
+                    student.setInstitution(institution);
+                    Student savedStudent = studentRepository.save(student);
+                    return new StudentResponseDto(savedStudent.getId(), savedStudent.getName(), savedStudent.getAdmissionNumber(), savedStudent.getInstitution());
             } else{
-                Student student = new Student();
-                student.setName(studentRequestDto.getName());
-                student.setAdmissionNumber(studentRequestDto.getAdmissionNumber());
-                Student savedStudent = studentRepository.save(student);
-                return new StudentResponseDto(savedStudent.getId(), savedStudent.getName(), savedStudent.getAdmissionNumber());
+                boolean admissionNumberExists = studentList.stream().anyMatch(student1 -> student1.getAdmissionNumber().equals(studentRequestDto.getAdmissionNumber()));
+                if(admissionNumberExists){
+                    throw new NameAlreadyTakenException("Student with the same admission number already exists");
+                } else{
+                    student.setName(studentRequestDto.getName());
+                    student.setAdmissionNumber(studentRequestDto.getAdmissionNumber());
+                    student.setInstitution(institution);
+                    Student savedStudent = studentRepository.save(student);
+                    return new StudentResponseDto(savedStudent.getId(), savedStudent.getName(), savedStudent.getAdmissionNumber());
+                }
             }
+        } else{
+            throw new ResourceNotFoundException("Institution with the id of " + institutionId + " does not exist");
         }
     }
 

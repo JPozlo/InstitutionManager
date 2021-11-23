@@ -33,7 +33,7 @@ public class Course {
     public Course() {
     }
 
-    public Course(long id, String name) {
+    public Course(Long id, String name) {
         this.id = id;
         this.name = name;
     }
@@ -60,7 +60,7 @@ public class Course {
     }
 
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 

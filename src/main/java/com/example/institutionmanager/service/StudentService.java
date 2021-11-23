@@ -11,7 +11,7 @@ import java.util.List;
 
 @Component
 public interface StudentService {
-    StudentResponseDto createStudent(StudentRequestDto studentRequestDto);
+    StudentResponseDto createStudent(Long institutionId, StudentRequestDto studentRequestDto);
     StudentResponseDto updateStudentName(Long studentId, String name);
     ApiResponse deleteStudent(Long studentId);
     List<StudentPaginatedResponseDto> getAllStudentsByInstitution(Long institutionId, Pageable pageable);
